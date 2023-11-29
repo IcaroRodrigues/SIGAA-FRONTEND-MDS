@@ -1,4 +1,4 @@
 
 export interface Aluno {
-    [prop:]
+    [prop: string]: any;
 }
