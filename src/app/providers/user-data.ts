@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
+import { UserOptions } from '../interfaces/user-options';
 
 
 @Injectable({
@@ -9,10 +10,27 @@ export class UserData {
   favorites: string[] = [];
   HAS_LOGGED_IN = 'hasLoggedIn';
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
+  user: UserOptions[] = [];
 
   constructor(
     public storage: Storage
-  ) { }
+  ) {
+    let user = [
+      {
+        "username": "230049158",
+        "password": "mds@123"
+      },
+      {
+        "username": "220143590",
+        "password": "mds@123"
+      }
+    ];
+
+    for(let u in user){
+      this.user.push(u);
+    }
+
+  }
 
   hasFavorite(sessionName: string): boolean {
     return (this.favorites.indexOf(sessionName) > -1);
@@ -29,7 +47,18 @@ export class UserData {
     }
   }
 
-  login(username: string): Promise<any> {
+  login(username: string, password: string): Promise<any> {
+    let i;
+    for(i = 0; i < this.user.length; i++){
+      if(username == this.user[i].username && password == this.user[i].password){
+        break;
+      }
+    }
+
+    if(i == this.user.length){
+      window.dispatchEvent(new CustomEvent('user:loginFailed'));
+    }
+
     return this.storage.set(this.HAS_LOGGED_IN, true).then(() => {
       this.setUsername(username);
       return window.dispatchEvent(new CustomEvent('user:login'));
