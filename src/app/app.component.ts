@@ -41,6 +41,7 @@ export class AppComponent implements OnInit {
     }
   ];
   loggedIn = false;
+  loginFailed = false;
   dark = false;
 
   constructor(
@@ -114,6 +115,11 @@ export class AppComponent implements OnInit {
     window.addEventListener('user:logout', () => {
       this.updateLoggedInStatus(false);
     });
+
+    window.addEventListener('user:loginFailed', () => {
+      this.loginFailed = true;
+      console.log('loginFailed' + this.loginFailed);
+    })
   }
 
   logout() {

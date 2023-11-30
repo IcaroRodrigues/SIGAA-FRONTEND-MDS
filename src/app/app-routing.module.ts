@@ -35,6 +35,10 @@ const routes: Routes = [
   },  {
     path: 'lista-oferta',
     loadChildren: () => import('./pages/lista-oferta/lista-oferta.module').then( m => m.ListaOfertaPageModule)
+  },
+  {
+    path: 'matricula-list',
+    loadChildren: () => import('./pages/matricula-list/matricula-list.module').then( m => m.MatriculaListPageModule)
   }
 
 ];
