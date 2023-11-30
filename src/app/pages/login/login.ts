@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { ToastController } from '@ionic/angular';
+
+
 import { UserData } from '../../providers/user-data';
 
 import { UserOptions } from '../../interfaces/user-options';
@@ -19,15 +22,33 @@ export class LoginPage {
 
   constructor(
     public userData: UserData,
-    public router: Router
+    public router: Router,
+    public toastCtrl: ToastController,
   ) { }
 
-  onLogin(form: NgForm) {
+  async onLogin(form: NgForm) {
     this.submitted = true;
 
     if (form.valid) {
-      this.userData.login(this.login.username, this.login.password);
-      this.router.navigateByUrl('/app/tabs/schedule');
+      const response = this.userData.login(this.login.username, this.login.password);
+
+      if (response) {
+        this.router.navigateByUrl('/app/tabs/schedule');
+      } else {
+        const toast = await this.toastCtrl.create({
+          header: 'Usuário ou senha incorreta',
+          duration: 3000,
+          buttons: [{
+            text: 'Close',
+            role: 'cancel'
+          }],
+          position: 'top',
+          color: 'danger',
+
+        });
+
+        await toast.present();
+      }
     }
   }
 
