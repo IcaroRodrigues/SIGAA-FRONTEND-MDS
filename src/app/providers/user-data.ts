@@ -10,12 +10,16 @@ export class UserData {
   favorites: string[] = [];
   HAS_LOGGED_IN = 'hasLoggedIn';
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
-  user: UserOptions[] = [];
+  user = []
 
   constructor(
     public storage: Storage
   ) {
-    let user = [
+    let users: UserOptions[] = [
+      {
+        "username": "123",
+        "password": "123"
+      },
       {
         "username": "230049158",
         "password": "mds@123"
@@ -26,10 +30,12 @@ export class UserData {
       }
     ];
 
-    for(let u in user){
-      this.user.push(u);
-    }
-
+    users.map((user) => {
+      this.user.push({
+        username: user.username,
+        password: user.password
+      })
+    })
   }
 
   hasFavorite(sessionName: string): boolean {
@@ -47,22 +53,19 @@ export class UserData {
     }
   }
 
-  login(username: string, password: string): Promise<any> {
-    let i;
-    for(i = 0; i < this.user.length; i++){
-      if(username == this.user[i].username && password == this.user[i].password){
-        break;
-      }
+  login(username: string, password: string) {
+
+    const user = this.user.find(user => user.username === username)
+
+    if (!user) {
+      return false
     }
 
-    if(i == this.user.length){
-      window.dispatchEvent(new CustomEvent('user:loginFailed'));
+    if (user.password !== password) {
+      return false
     }
 
-    return this.storage.set(this.HAS_LOGGED_IN, true).then(() => {
-      this.setUsername(username);
-      return window.dispatchEvent(new CustomEvent('user:login'));
-    });
+    return true
   }
 
   signup(username: string): Promise<any> {
