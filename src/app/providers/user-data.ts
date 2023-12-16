@@ -17,23 +17,23 @@ export class UserData {
   ) {
     let users: UserOptions[] = [
       {
-        "username": "123",
+        "matricula": "123",
         "password": "123"
       },
       {
-        "username": "230049158",
+        "matricula": "230049158",
         "password": "mds@123"
       },
       {
-        "username": "220143590",
+        "matricula": "220143590",
         "password": "mds@123"
       }
     ];
 
-    users.map((user) => {
+    users.map(({ matricula, password }) => {
       this.user.push({
-        username: user.username,
-        password: user.password
+        matricula,
+        password
       })
     })
   }
@@ -53,9 +53,9 @@ export class UserData {
     }
   }
 
-  login(username: string, password: string) {
+  login(matricula: string, password: string) {
 
-    const user = this.user.find(user => user.username === username)
+    const user = this.user.find(user => user.matricula === matricula)
 
     if (!user) {
       return false
@@ -65,7 +65,11 @@ export class UserData {
       return false
     }
 
-    return true
+    return this.storage.set(this.HAS_LOGGED_IN, true).then(() => {
+      this.setUsername(user.matricula)
+      this.setPassword(user.password)
+      return window.dispatchEvent(new CustomEvent('user:login'));
+    })
   }
 
   signup(username: string): Promise<any> {
@@ -83,14 +87,20 @@ export class UserData {
     });
   }
 
-  setUsername(username: string): Promise<any> {
-    return this.storage.set('username', username);
+  getUsername(): Promise<string> {
+    return this.storage.get('username').then(username => username);
   }
 
-  getUsername(): Promise<string> {
-    return this.storage.get('username').then((value) => {
-      return value;
-    });
+  setUsername(matricula: string): Promise<any> {
+    return this.storage.set('matricula', matricula);
+  }
+
+  getPassword(): Promise<string> {
+    return this.storage.get('password').then(password => password)
+  }
+
+  setPassword(password: string): Promise<any> {
+    return this.storage.set('password', password)
   }
 
   isLoggedIn(): Promise<boolean> {

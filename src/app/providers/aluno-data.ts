@@ -17,23 +17,23 @@ export class UserData {
   ) {
     let users: UserOptions[] = [
       {
-        "username": "123",
+        "matricula": "123",
         "password": "123"
       },
       {
-        "username": "230049158",
+        "matricula": "230049158",
         "password": "mds@123"
       },
       {
-        "username": "220143590",
+        "matricula": "220143590",
         "password": "mds@123"
       }
     ];
 
-    users.map((user) => {
+    users.map(({ matricula, password }) => {
       this.user.push({
-        username: user.username,
-        password: user.password
+        matricula,
+        password
       })
     })
 
@@ -65,7 +65,10 @@ export class UserData {
       return false
     }
 
-    return true
+    return this.storage.set(this.HAS_LOGGED_IN, true).then(() => {
+      this.setUsername(user.username)
+      return window.dispatchEvent(new CustomEvent('user:login'));
+    })
   }
 
   signup(username: string): Promise<any> {
