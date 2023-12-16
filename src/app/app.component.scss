@@ -91,3 +91,19 @@ ion-menu.ios ion-item ion-icon {
 ion-menu.ios ion-item.selected ion-icon {
   color: var(--ion-color-primary);
 }
+
+.toast {
+  font-size: medium;
+  transform: translateY(20px);
+  animation: test 0.5s;
+}
+
+@keyframes test {
+  0% {
+    transform: translateY(0px);
+  }
+
+  100% {
+    transform: translateY(20px);
+  }
+}
