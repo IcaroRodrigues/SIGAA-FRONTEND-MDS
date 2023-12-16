@@ -1,5 +1,5 @@
 
 export interface UserOptions {
-  username: string;
+  matricula: string;
   password: string;
 }
