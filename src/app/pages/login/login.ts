@@ -9,15 +9,13 @@ import { UserData } from '../../providers/user-data';
 
 import { UserOptions } from '../../interfaces/user-options';
 
-
-
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
   styleUrls: ['./login.scss'],
 })
 export class LoginPage {
-  login: UserOptions = { username: '', password: '' };
+  login: UserOptions = { matricula: '', password: '' };
   submitted = false;
 
   constructor(
@@ -30,18 +28,19 @@ export class LoginPage {
     this.submitted = true;
 
     if (form.valid) {
-      const response = this.userData.login(this.login.username, this.login.password);
+      const response = this.userData.login(this.login.matricula, this.login.password);
 
       if (response) {
         this.router.navigateByUrl('/app/tabs/schedule');
       } else {
         const toast = await this.toastCtrl.create({
-          header: 'Usuário ou senha incorreta',
+          header: 'Matrícula ou senha incorreta',
           duration: 3000,
           buttons: [{
-            text: 'Close',
-            role: 'cancel'
+            role: 'cancel',
+            icon: 'close-circle-outline'
           }],
+          cssClass: 'toast',
           position: 'top',
           color: 'danger',
 
