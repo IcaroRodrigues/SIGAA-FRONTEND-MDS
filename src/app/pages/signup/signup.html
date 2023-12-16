@@ -15,28 +15,12 @@
 
   <div class="signup-form">
     <form #signupForm="ngForm" novalidate>
-      <ion-input
-        label="Username"
-        labelPlacement="stacked"
-        fill="solid"
-        [(ngModel)]="signup.username"
-        name="username"
-        type="text"
-        #username="ngModel"
-        errorText="Username is required"
-        required>
+      <ion-input label="Username" labelPlacement="stacked" fill="solid" [(ngModel)]="signup.matricula" name="username"
+        type="text" #username="ngModel" errorText="Username is required" required>
       </ion-input>
 
-      <ion-input
-        label="Password"
-        labelPlacement="stacked"
-        fill="solid"
-        [(ngModel)]="signup.password"
-        name="password"
-        type="password"
-        #password="ngModel"
-        errorText="Password is required"
-        required>
+      <ion-input label="Password" labelPlacement="stacked" fill="solid" [(ngModel)]="signup.password" name="password"
+        type="password" #password="ngModel" errorText="Password is required" required>
       </ion-input>
 
       <div class="ion-padding">
