@@ -62,8 +62,9 @@ export class AccountPage implements AfterViewInit {
     });
   }
 
-  changePassword() {
+  async changePassword() {
     console.log('Clicked to change password');
+    console.log(await this.userData.getUsername())
   }
 
   logout() {
