@@ -1,55 +1,33 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-
-    <ion-title>Login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
+<div class="login-container">
   <div class="login-logo">
-    <img src="assets/img/appicon.svg" alt="Ionic logo">
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Webysther_20160322_-_Logo_UnB_%28sem_texto%29.svg/256px-Webysther_20160322_-_Logo_UnB_%28sem_texto%29.svg.png"
+      alt="Ionic logo">
+
+    <h1>UnB - Sigaa</h1>
   </div>
 
   <div class="login-form">
     <form #loginForm="ngForm" novalidate>
-      <ion-input
-        label="Username"
-        labelPlacement="stacked"
-        fill="solid"
-        [(ngModel)]="login.username"
-        name="username"
-        type="text"
-        #username="ngModel"
-        spellcheck="false"
-        autocapitalize="off"
-        errorText="Username is required"
-        required>
-      </ion-input>
 
-      <ion-input
-        label="Password"
-        labelPlacement="stacked"
-        fill="solid"
-        [(ngModel)]="login.password"
-        name="password"
-        type="password"
-        #password="ngModel"
-        errorText="Password is required"
-        required>
-      </ion-input>
+      <div class="input-group">
+        <ion-input label="Matrícula" labelPlacement="stacked" fill="solid" [(ngModel)]="login.matricula"
+          name="matricula" type="text" #username="ngModel" spellcheck="false" autocapitalize="off"
+          errorText="Campo obrigatório." required>
+        </ion-input>
+
+        <ion-input label="Senha" labelPlacement="stacked" fill="solid" [(ngModel)]="login.password" name="password"
+          type="password" #password="ngModel" errorText="Campo obrigatório." required>
+        </ion-input>
+      </div>
+
 
       <ion-row>
         <ion-col>
           <ion-button (click)="onLogin(loginForm)" type="submit" expand="block">Login</ion-button>
         </ion-col>
-        <ion-col>
-          <ion-button (click)="onSignup()" color="light" expand="block">Signup</ion-button>
-        </ion-col>
       </ion-row>
     </form>
   </div>
 
-</ion-content>
+</div>
