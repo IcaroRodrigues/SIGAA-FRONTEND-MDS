@@ -5,7 +5,7 @@ import { checkTutorialGuard } from './providers/check-tutorial.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/tutorial',
+    redirectTo: '',
     pathMatch: 'full'
   },
   {
@@ -17,7 +17,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/support/support.module').then(m => m.SupportModule)
   },
   {
-    path: 'login',
+    path: '',
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
   },
   {
@@ -32,13 +32,14 @@ const routes: Routes = [
     path: 'tutorial',
     loadChildren: () => import('./pages/tutorial/tutorial.module').then(m => m.TutorialModule),
     canMatch: [checkTutorialGuard]
-  },  {
+  },
+  {
     path: 'lista-oferta',
-    loadChildren: () => import('./pages/lista-oferta/lista-oferta.module').then( m => m.ListaOfertaPageModule)
+    loadChildren: () => import('./pages/lista-oferta/lista-oferta.module').then(m => m.ListaOfertaPageModule)
   },
   {
     path: 'matricula-list',
-    loadChildren: () => import('./pages/matricula-list/matricula-list.module').then( m => m.MatriculaListPageModule)
+    loadChildren: () => import('./pages/matricula-list/matricula-list.module').then(m => m.MatriculaListPageModule)
   }
 
 ];
